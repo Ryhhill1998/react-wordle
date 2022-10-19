@@ -8,20 +8,22 @@ const useWordle = (chosenWord) => {
 
   // assign a colour to each letter in the guess array
   // colour indicates whether guessed letter is correct/partially correct
-  const checkLetter = (letter, index) => {
-    // check if chosen word contains letter
-    if (chosenWord.includes(letter)) {
-      // check if letter is in correct place in word
-      if (chosenWord[index] === letter) {
-        // return green if letter in right place
-        return "green";
+  const checkLetters = (guessArray, chosenLetters) => {
+    // set all letters in correct position to green
+    guessArray.forEach((guess, i) => {
+      if (chosenLetters[i] === guess.letter) {
+        guess.colour = "green";
+        chosenLetters[i] = null;
       }
-      // return orange if letter in wrong place
-      return "orange";
-    }
+    });
 
-    // return grey if letter not in word
-    return "grey";
+    // set all letters in chosen word but in wrong position to yellow
+    guessArray.forEach((guess) => {
+      if (chosenLetters.includes(guess.letter) && guess.colour !== "green") {
+        guess.colour = "orange";
+        chosenLetters[chosenLetters.indexOf(guess.letter)] = null;
+      }
+    });
   };
 
   // format the user guess into an array of objects
@@ -33,17 +35,16 @@ const useWordle = (chosenWord) => {
       return;
     }
 
+    const chosenLetters = [...chosenWord];
+
     const guessArray = [...currentGuess].map((character, i) => ({
       letter: character,
-      colour: checkLetter(character, i),
+      colour: "grey",
     }));
 
-    console.log(guessArray);
-    if (checkGuessCorrect(guessArray)) {
-      console.log("Guess correct");
-    } else {
-      addNewGuess(guessArray);
-    }
+    checkLetters(guessArray, chosenLetters);
+
+    return guessArray;
   };
 
   // check whether the user's guess is correct
@@ -75,7 +76,14 @@ const useWordle = (chosenWord) => {
   const handleKeyUp = ({ key, keyCode }) => {
     // check if user pressed enter to submit their guess
     if (keyCode === 13) {
-      formatGuess();
+      const formatted = formatGuess();
+
+      console.log(formatted);
+      if (checkGuessCorrect(formatted)) {
+        console.log("Guess correct");
+      } else {
+        addNewGuess(formatted);
+      }
     }
 
     // check if user pressed backspace
