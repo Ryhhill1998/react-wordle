@@ -1,0 +1,37 @@
+.row {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+
+.space {
+  display: block;
+  width: 60px;
+  height: 60px;
+  border: solid 1px #bbb;
+  margin: 4px;
+  text-align: center;
+  line-height: 60px;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 2.5rem;
+}
+
+.row.previous {
+  color: #fff;
+}
+
+.space.green {
+  background-color: green;
+  border-color: green;
+}
+
+.space.yellow {
+  background-color: orange;
+  border-color: orange;
+}
+
+.space.grey {
+  background-color: grey;
+  border-color: grey;
+}
