@@ -12,7 +12,8 @@ const Wordle = ({ chosenWord }) => {
 
   return (
     <div>
-      <h2>chosen word: {chosenWord}</h2>
+      <h2>Chosen word: {chosenWord}</h2>
+      <p>Current guess: {currentGuess}</p>
     </div>
   );
 };

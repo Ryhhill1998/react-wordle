@@ -6,6 +6,8 @@ const useWordle = (chosenWord) => {
   const [guesses, setGuesses] = useState([]); // keep track of all guesses for tile colours
   const [guessCorrect, setGuessCorrect] = useState(false); // set to true when user guesses word
 
+  // assign a colour to each letter in the guess array
+  // colour indicates whether guessed letter is correct/partially correct
   const checkLetter = (letter, index) => {
     // check if chosen word contains letter
     if (chosenWord.includes(letter)) {
@@ -14,7 +16,6 @@ const useWordle = (chosenWord) => {
         // return green if letter in right place
         return "green";
       }
-
       // return orange if letter in wrong place
       return "orange";
     }
@@ -23,6 +24,8 @@ const useWordle = (chosenWord) => {
     return "grey";
   };
 
+  // format the user guess into an array of objects
+  // each object contains the letter and its corresponding colour
   const formatGuess = () => {
     // check guess is of the current length
     if (currentGuess.length < 5) {
@@ -30,16 +33,21 @@ const useWordle = (chosenWord) => {
       return;
     }
 
-    const guessArray = currentGuess.split("").map((character, i) => ({
+    const guessArray = [...currentGuess].map((character, i) => ({
       letter: character,
       colour: checkLetter(character, i),
     }));
 
     console.log(guessArray);
-    const guessIsCorrect = checkGuessCorrect(guessArray);
-    console.log("Guess correct? " + guessIsCorrect);
+    if (checkGuessCorrect(guessArray)) {
+      console.log("Guess correct");
+    } else {
+      addNewGuess(guessArray);
+    }
   };
 
+  // check whether the user's guess is correct
+  // returns true if all letters in guess array have colour green as all in correct place
   const checkGuessCorrect = (guessArray) => {
     let correct = true;
 
@@ -54,34 +62,47 @@ const useWordle = (chosenWord) => {
     return correct;
   };
 
-  const addNewGuess = () => {};
+  // add the formatted guess array into the array of guesses in the state
+  // only called if the user's guess is incorrect
+  const addNewGuess = (guessArray) => {
+    setGuesses((prev) => {
+      return [...prev, guessArray];
+    });
+  };
 
-  const handleKeyUp = (event) => {
+  // handle what to do for each key the user may have pressed
+  // function will simply return if key is not a letter/backspace/enter
+  const handleKeyUp = ({ key, keyCode }) => {
     // check if user pressed enter to submit their guess
-    if (event.keyCode === 13) {
+    if (keyCode === 13) {
       formatGuess();
     }
 
     // check if user pressed backspace
-    if (event.keyCode === 8) {
-      setCurrentGuess((curr) => curr.slice(0, curr.length - 1));
+    if (keyCode === 8) {
+      setCurrentGuess((curr) => curr.slice(0, -1));
       return;
     }
 
     // check if user entered an invalid character or guess is already 5 letters long and return if so
-    if (event.keyCode < 65 || event.keyCode > 90 || currentGuess.length === 5)
-      return;
+    if (keyCode < 65 || keyCode > 90 || currentGuess.length === 5) return;
 
     // add letter pressed to currentGuess
-    const keyPressed = event.key;
+    const keyPressed = key;
     setCurrentGuess(currentGuess + keyPressed);
   };
 
-  // useEffect just to see changes in currentGuess
+  // useEffect just to see changes in currentGuess - to be deleted at end
   useEffect(() => {
     console.log(currentGuess);
   }, [currentGuess]);
 
+  // useEffect just to see changes in guesses - to be deleted at end
+  useEffect(() => {
+    console.log(guesses);
+  }, [guesses]);
+
+  // return state variables to be used elsewhere in the app
   return { turn, currentGuess, guesses, guessCorrect, handleKeyUp };
 };
 
