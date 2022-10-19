@@ -5,7 +5,11 @@ const Grid = ({ currentGuess, guesses, turn }) => {
   return (
     <div>
       {guesses.map((guess, i) => (
-        <Row key={i} guess={guess} />
+        <Row
+          key={i}
+          currentGuess={turn === i ? currentGuess : ""}
+          guess={guess}
+        />
       ))}
     </div>
   );
