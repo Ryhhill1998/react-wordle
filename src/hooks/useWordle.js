@@ -66,7 +66,7 @@ const useWordle = (chosenWord) => {
   // function will simply return if key is not a letter/backspace/enter
   const handleKeyUp = ({ key, keyCode }) => {
     // check if user already had maximum turns
-    if (turn === 6) {
+    if (guessCorrect || turn === 6) {
       return;
     }
 

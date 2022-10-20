@@ -1,13 +1,11 @@
 import "./row.styles.css";
 
-const Row = ({ currentGuess, guess }) => {
+const Row = ({ currentGuess, guess, isPrevious }) => {
   if (currentGuess) {
     return (
       <div className="row current">
-        {[...currentGuess].map((letter, i) => (
-          <div key={i} className="space filled">
-            {letter}
-          </div>
+        {[...currentGuess].map((letter) => (
+          <div className="space filled">{letter}</div>
         ))}
         {[...Array(5 - currentGuess.length)].map((_, i) => (
           <div key={i} className="space"></div>
@@ -17,11 +15,26 @@ const Row = ({ currentGuess, guess }) => {
   }
 
   if (guess) {
+    if (!isPrevious) {
+      return (
+        <div className="row previous">
+          {guess.map((el, i) => (
+            <div key={i} className={`space ${el.colour}`}>
+              {el.letter}
+            </div>
+          ))}
+        </div>
+      );
+    }
+
     return (
       <div className="row previous">
         {guess.map((el, i) => (
-          <div key={i} className={`space ${el.colour}`}>
-            {el.letter}
+          <div key={i} className="space-container">
+            <div className={`space front pos-${i}`}>{el.letter}</div>
+            <div className={`space back pos-${i} ${el.colour}`}>
+              {el.letter}
+            </div>
           </div>
         ))}
       </div>

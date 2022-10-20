@@ -1,0 +1,15 @@
+.keyboard-row {
+  display: flex;
+  justify-content: center;
+  gap: 0.6em;
+  margin: 0.6em;
+}
+
+.keyboard-letter {
+  background-color: grey;
+  border-radius: 5px;
+  width: 35px;
+  height: 45px;
+  line-height: 45px;
+  font-size: 1.2rem;
+}
