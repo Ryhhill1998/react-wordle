@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const useWordle = (chosenWord) => {
   const [turn, setTurn] = useState(0); // keep track of place on gameboard and lives left
   const [currentGuess, setCurrentGuess] = useState(""); // keep track of letters entered by user
   const [guesses, setGuesses] = useState([...Array(6)]); // keep track of all guesses for tile colours
   const [guessCorrect, setGuessCorrect] = useState(false); // set to true when user guesses word
+  const [feedback, setFeedback] = useState({});
 
   // assign a colour to each letter in the guess array
   // colour indicates whether guessed letter is correct/partially correct
@@ -45,7 +46,7 @@ const useWordle = (chosenWord) => {
   // only called if the user's guess is incorrect
   const addNewGuess = (guessArray) => {
     if (currentGuess === chosenWord) {
-      console.log("Guess correct");
+      setFeedback({ description: "Correct!" });
       setGuessCorrect(true);
     }
 
@@ -65,6 +66,7 @@ const useWordle = (chosenWord) => {
   // handle what to do for each key the user may have pressed
   // function will simply return if key is not a letter/backspace/enter
   const handleKeyUp = ({ key, keyCode }) => {
+    setFeedback({});
     // check if user already had maximum turns
     if (guessCorrect || turn === 6) {
       return;
@@ -74,7 +76,9 @@ const useWordle = (chosenWord) => {
     if (keyCode === 13) {
       // check guess is of the current length
       if (currentGuess.length < 5) {
-        console.log("Guess not long enough!");
+        setFeedback({
+          description: "Not enough letters!",
+        });
         return;
       }
 
@@ -96,8 +100,20 @@ const useWordle = (chosenWord) => {
     setCurrentGuess(currentGuess + keyPressed);
   };
 
+  useEffect(() => {
+    if (turn !== 6 || guessCorrect) return;
+    setFeedback({ description: chosenWord });
+  }, [turn]);
+
   // return state variables to be used elsewhere in the app
-  return { turn, currentGuess, guesses, guessCorrect, handleKeyUp };
+  return {
+    turn,
+    currentGuess,
+    guesses,
+    guessCorrect,
+    handleKeyUp,
+    feedback,
+  };
 };
 
 export default useWordle;
