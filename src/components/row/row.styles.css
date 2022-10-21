@@ -16,66 +16,92 @@
   font-size: 2.5rem;
 }
 
-.front {
+.space--filled {
+  animation: pressed 0.2s ease-in-out forwards;
+}
+
+.space--front {
   position: absolute;
   border-color: rgb(187, 187, 187);
   animation: flip 0.5s forwards ease-in;
 }
 
-.back {
+.space--back {
   transform: rotateX(90deg);
   animation: flip 0.5s 0.5s forwards ease-out reverse;
 }
 
-.back.green {
+.space.green {
   background-color: green;
   border-color: green;
 }
 
-.back.yellow {
+.space.yellow {
   background-color: orange;
   border-color: orange;
 }
 
-.back.grey {
+.space.grey {
   background-color: grey;
   border-color: grey;
 }
 
-.space.filled {
-  animation: pressed 0.2s ease-in-out forwards;
-}
-
-.space.front.pos-1 {
+.space--front.pos-1 {
   animation-delay: 0.2s;
 }
 
-.space.front.pos-2 {
+.space--front.pos-2 {
   animation-delay: 0.4s;
 }
 
-.space.front.pos-3 {
+.space--front.pos-3 {
   animation-delay: 0.6s;
 }
 
-.space.front.pos-4 {
+.space--front.pos-4 {
   animation-delay: 0.8s;
 }
 
-.space.back.pos-1 {
+.space--back.pos-1 {
   animation-delay: 0.7s;
 }
 
-.space.back.pos-2 {
+.space--back.pos-2 {
   animation-delay: 0.9s;
 }
 
-.space.back.pos-3 {
+.space--back.pos-3 {
   animation-delay: 1.1s;
 }
 
-.space.back.pos-4 {
+.space--back.pos-4 {
   animation-delay: 1.3s;
+}
+
+.space--back.correct {
+  transform: rotateX(90deg);
+  animation: flip 0.5s 0.5s forwards ease-out reverse,
+    correct 0.3s 1.5s ease-out;
+}
+
+.space--back.correct.pos-1 {
+  animation: flip 0.5s 0.7s forwards ease-out reverse,
+    correct 0.3s 1.6s ease-out;
+}
+
+.space--back.correct.pos-2 {
+  animation: flip 0.5s 0.9s forwards ease-out reverse,
+    correct 0.3s 1.7s ease-out;
+}
+
+.space--back.correct.pos-3 {
+  animation: flip 0.5s 1.1s forwards ease-out reverse,
+    correct 0.3s 1.8s ease-out;
+}
+
+.space--back.correct.pos-4 {
+  animation: flip 0.5s 1.3s forwards ease-out reverse,
+    correct 0.3s 1.9s ease-out;
 }
 
 @keyframes pressed {
@@ -104,5 +130,17 @@
   }
   100% {
     transform: rotateX(90deg);
+  }
+}
+
+@keyframes correct {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-50px);
+  }
+  100% {
+    transform: translateY(0px);
   }
 }

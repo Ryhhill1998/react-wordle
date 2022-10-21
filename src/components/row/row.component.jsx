@@ -1,11 +1,13 @@
 import "./row.styles.css";
 
-const Row = ({ currentGuess, guess, isPrevious }) => {
+const Row = ({ currentGuess, guess, isPrevious, guessCorrect }) => {
   if (currentGuess) {
     return (
-      <div className="row current">
-        {[...currentGuess].map((letter) => (
-          <div className="space filled">{letter}</div>
+      <div className="row">
+        {[...currentGuess].map((letter, i) => (
+          <div key={i} className="space space--filled">
+            {letter}
+          </div>
         ))}
         {[...Array(5 - currentGuess.length)].map((_, i) => (
           <div key={i} className="space"></div>
@@ -17,7 +19,7 @@ const Row = ({ currentGuess, guess, isPrevious }) => {
   if (guess) {
     if (!isPrevious) {
       return (
-        <div className="row previous">
+        <div className="row">
           {guess.map((el, i) => (
             <div key={i} className={`space ${el.colour}`}>
               {el.letter}
@@ -28,11 +30,15 @@ const Row = ({ currentGuess, guess, isPrevious }) => {
     }
 
     return (
-      <div className="row previous">
+      <div className="row">
         {guess.map((el, i) => (
-          <div key={i} className="space-container">
-            <div className={`space front pos-${i}`}>{el.letter}</div>
-            <div className={`space back pos-${i} ${el.colour}`}>
+          <div key={i}>
+            <div className={`space space--front pos-${i}`}>{el.letter}</div>
+            <div
+              className={`space space--back pos-${i} ${el.colour} ${
+                guessCorrect ? "correct" : ""
+              }`}
+            >
               {el.letter}
             </div>
           </div>

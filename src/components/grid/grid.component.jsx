@@ -2,7 +2,7 @@ import "./grid.styles.css";
 
 import Row from "../row/row.component";
 
-const Grid = ({ currentGuess, guesses, turn }) => {
+const Grid = ({ currentGuess, guesses, turn, guessCorrect }) => {
   return (
     <div className="grid-container">
       {guesses.map((guess, i) => (
@@ -10,7 +10,8 @@ const Grid = ({ currentGuess, guesses, turn }) => {
           key={i}
           currentGuess={turn === i ? currentGuess : ""}
           guess={guess}
-          isPrevious={true}
+          guessCorrect={guessCorrect}
+          isPrevious={turn - 1 === i}
         />
       ))}
     </div>

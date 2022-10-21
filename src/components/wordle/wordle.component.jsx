@@ -17,7 +17,13 @@ const Wordle = ({ chosenWord }) => {
 
   return (
     <div className="game-container">
-      <Grid currentGuess={currentGuess} guesses={guesses} turn={turn} />
+      <p>{chosenWord}</p>
+      <Grid
+        currentGuess={currentGuess}
+        guesses={guesses}
+        turn={turn}
+        guessCorrect={guessCorrect}
+      />
       <Keyboard guesses={guesses} handleKeyUp={handleKeyUp} />
     </div>
   );

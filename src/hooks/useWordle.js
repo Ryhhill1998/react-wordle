@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const useWordle = (chosenWord) => {
   const [turn, setTurn] = useState(0); // keep track of place on gameboard and lives left

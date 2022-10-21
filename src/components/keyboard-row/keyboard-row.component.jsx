@@ -11,15 +11,12 @@ const KeyboardRow = ({ letters, guesses, handleKeyUp }) => {
 
   const findKeyColour = (letter) => {
     const anyGreen = findQueryColour(letter, "green");
-
     if (anyGreen) return "green";
 
     const anyYellow = findQueryColour(letter, "yellow");
-
     if (anyYellow) return "yellow";
 
     const anyGrey = findQueryColour(letter, "grey");
-
     if (anyGrey) return "grey";
   };
 
