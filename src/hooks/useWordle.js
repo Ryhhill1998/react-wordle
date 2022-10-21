@@ -80,7 +80,6 @@ const useWordle = (chosenWord) => {
 
       const formatted = formatGuess();
       addNewGuess(formatted);
-      console.log(formatted);
     }
 
     // check if user pressed backspace
@@ -96,16 +95,6 @@ const useWordle = (chosenWord) => {
     const keyPressed = key;
     setCurrentGuess(currentGuess + keyPressed);
   };
-
-  // useEffect just to see changes in currentGuess - to be deleted at end
-  useEffect(() => {
-    console.log(currentGuess);
-  }, [currentGuess]);
-
-  // useEffect just to see changes in guesses - to be deleted at end
-  useEffect(() => {
-    console.log(guesses);
-  }, [guesses]);
 
   // return state variables to be used elsewhere in the app
   return { turn, currentGuess, guesses, guessCorrect, handleKeyUp };
