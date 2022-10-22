@@ -12,6 +12,12 @@
   height: 45px;
   line-height: 45px;
   font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.keyboard-letter.enter,
+.keyboard-letter.del {
+  width: 57.3px;
 }
 
 .keyboard-letter.green {

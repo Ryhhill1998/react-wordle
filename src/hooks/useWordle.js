@@ -66,6 +66,14 @@ const useWordle = (chosenWord) => {
   // handle what to do for each key the user may have pressed
   // function will simply return if key is not a letter/backspace/enter
   const handleKeyUp = ({ key, keyCode }) => {
+    playGame(key, keyCode);
+  };
+
+  const handleKeyClick = ({ target }) => {
+    playGame(target.innerHTML);
+  };
+
+  const playGame = (key, keyCode = 65) => {
     setFeedback({});
     // check if user already had maximum turns
     if (guessCorrect || turn === 6) {
@@ -73,7 +81,7 @@ const useWordle = (chosenWord) => {
     }
 
     // check if user pressed enter to submit their guess
-    if (keyCode === 13) {
+    if (key === "Enter") {
       // check guess is of the current length
       if (currentGuess.length < 5) {
         setFeedback({
@@ -87,7 +95,7 @@ const useWordle = (chosenWord) => {
     }
 
     // check if user pressed backspace
-    if (keyCode === 8) {
+    if (key === "Backspace" || key === "Del") {
       setCurrentGuess((curr) => curr.slice(0, -1));
       return;
     }
@@ -112,6 +120,7 @@ const useWordle = (chosenWord) => {
     guesses,
     guessCorrect,
     handleKeyUp,
+    handleKeyClick,
     feedback,
   };
 };

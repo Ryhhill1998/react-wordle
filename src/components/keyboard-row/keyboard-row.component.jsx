@@ -1,6 +1,6 @@
 import "./keyboard-row.styles.css";
 
-const KeyboardRow = ({ letters, guesses, handleKeyUp }) => {
+const KeyboardRow = ({ letters, guesses, handleKeyClick }) => {
   const findQueryColour = (letter, queryColour) => {
     return guesses.some(
       (guess) =>
@@ -23,7 +23,13 @@ const KeyboardRow = ({ letters, guesses, handleKeyUp }) => {
   return (
     <div className="keyboard-row">
       {letters.map((letter, i) => (
-        <div key={i} className={`keyboard-letter ${findKeyColour(letter)}`}>
+        <div
+          key={i}
+          className={`keyboard-letter ${findKeyColour(
+            letter
+          )} ${letter.toLowerCase()}`}
+          onClick={handleKeyClick}
+        >
           {letter}
         </div>
       ))}

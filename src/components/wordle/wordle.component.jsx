@@ -7,8 +7,15 @@ import Keyboard from "../keyboard/keyboard.component";
 import "./wordle.styles.css";
 
 const Wordle = ({ chosenWord }) => {
-  const { currentGuess, guesses, handleKeyUp, guessCorrect, turn, feedback } =
-    useWordle(chosenWord);
+  const {
+    currentGuess,
+    guesses,
+    handleKeyUp,
+    handleKeyClick,
+    guessCorrect,
+    turn,
+    feedback,
+  } = useWordle(chosenWord);
 
   useEffect(() => {
     window.addEventListener("keyup", handleKeyUp);
@@ -25,7 +32,7 @@ const Wordle = ({ chosenWord }) => {
         turn={turn}
         guessCorrect={guessCorrect}
       />
-      <Keyboard guesses={guesses} handleKeyUp={handleKeyUp} />
+      <Keyboard guesses={guesses} handleKeyClick={handleKeyClick} />
     </div>
   );
 };

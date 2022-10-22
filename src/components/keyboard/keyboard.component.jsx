@@ -1,8 +1,12 @@
 import KeyboardRow from "../keyboard-row/keyboard-row.component";
 import "./keyboard.styles.css";
 
-const Keyboard = ({ guesses, handleKeyUp }) => {
-  const rows = [[..."qwertyuiop"], [..."asdfghjkl"], [..."zxcvbnm"]];
+const Keyboard = ({ guesses, handleKeyClick }) => {
+  const rows = [
+    [..."qwertyuiop"],
+    [..."asdfghjkl"],
+    ["Enter", ..."zxcvbnm", "Del"],
+  ];
 
   return (
     <div>
@@ -11,7 +15,7 @@ const Keyboard = ({ guesses, handleKeyUp }) => {
           key={i}
           letters={row}
           guesses={guesses}
-          handleKeyUp={handleKeyUp}
+          handleKeyClick={handleKeyClick}
         />
       ))}
     </div>
