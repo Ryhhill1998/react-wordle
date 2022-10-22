@@ -43,7 +43,6 @@ const Wordle = ({ chosenWord }) => {
   }, [handleKeyUp, guessCorrect, turn, chosenWord]);
 
   useEffect(() => {
-    console.log(currentGuess.length);
     if (guessSubmitted && guessTooShort) {
       setFeedback("Not enough letters!");
       setShowFeedback(true);

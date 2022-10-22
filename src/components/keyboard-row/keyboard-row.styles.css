@@ -1,23 +1,23 @@
 .keyboard-row {
   display: flex;
   justify-content: center;
-  gap: 0.6em;
-  margin: 0.6em;
+  gap: 0.5em;
+  margin: 0.5em;
 }
 
 .keyboard-letter {
   background-color: grey;
   border-radius: 5px;
-  width: 35px;
-  height: 45px;
-  line-height: 45px;
-  font-size: 1.2rem;
+  width: 2.5rem;
+  height: 3.125rem;
+  line-height: 3.125rem;
+  font-size: 1rem;
   cursor: pointer;
 }
 
 .keyboard-letter.enter,
 .keyboard-letter.del {
-  width: 57.3px;
+  width: 3.95rem;
 }
 
 .keyboard-letter.green {
