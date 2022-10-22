@@ -1,6 +1,6 @@
 import "./feedback.styles.css";
 
-const Feedback = ({ value, turn, guessCorrect }) => {
+const Feedback = ({ value }) => {
   return <div className="feedback-container">{value}</div>;
 };
 

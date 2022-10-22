@@ -54,10 +54,8 @@ const Wordle = ({ chosenWord }) => {
   }, [currentGuess, guessSubmitted, setGuessSubmitted, guessTooShort]);
 
   return (
-    <div className="game-container">
-      {showFeedback && (
-        <Feedback value={feedback} turn={turn} guessCorrect={guessCorrect} />
-      )}
+    <div>
+      {showFeedback && <Feedback value={feedback} />}
       <Grid
         currentGuess={currentGuess}
         guesses={guesses}

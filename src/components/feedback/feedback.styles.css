@@ -1,14 +1,15 @@
 .feedback-container {
   position: absolute;
   z-index: 5;
+  width: fit-content;
   background-color: white;
   color: black;
   right: 0;
   left: 0;
   top: 10%;
-  max-width: 155px;
   border-radius: 10px;
-  height: 40px;
-  line-height: 40px;
+  padding: 0.5em 1em;
   margin: 0 auto;
+  font-size: 1.2em;
+  font-weight: bold;
 }
