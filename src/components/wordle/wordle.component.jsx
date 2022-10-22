@@ -33,7 +33,7 @@ const Wordle = ({ chosenWord }) => {
       window.removeEventListener("keyup", handleKeyUp);
     }
 
-    if (turn === 6) {
+    if (!guessCorrect && turn === 6) {
       setFeedback(`Game over! (${chosenWord})`);
       setShowFeedback(true);
       window.removeEventListener("keyup", handleKeyUp);
