@@ -7,6 +7,11 @@ import Keyboard from "../keyboard/keyboard.component";
 import "./wordle.styles.css";
 
 const Wordle = ({ chosenWord }) => {
+  const [feedback, setFeedback] = useState("");
+  const [showFeedback, setShowFeedback] = useState(false);
+
+  const resetFeeback = () => setShowFeedback(false);
+
   const {
     currentGuess,
     guesses,
@@ -14,18 +19,46 @@ const Wordle = ({ chosenWord }) => {
     handleKeyClick,
     guessCorrect,
     turn,
-    feedback,
+    guessSubmitted,
+    setGuessSubmitted,
+    guessTooShort,
   } = useWordle(chosenWord);
 
   useEffect(() => {
     window.addEventListener("keyup", handleKeyUp);
 
+    if (guessCorrect) {
+      setFeedback("You win!");
+      setShowFeedback(true);
+      window.removeEventListener("keyup", handleKeyUp);
+    }
+
+    if (turn === 6) {
+      setFeedback(`Game over! (${chosenWord})`);
+      setShowFeedback(true);
+      window.removeEventListener("keyup", handleKeyUp);
+    }
+
     return () => window.removeEventListener("keyup", handleKeyUp);
-  }, [handleKeyUp]);
+  }, [handleKeyUp, guessCorrect, turn, chosenWord]);
+
+  useEffect(() => {
+    console.log(currentGuess.length);
+    if (guessSubmitted && guessTooShort) {
+      setFeedback("Not enough letters!");
+      setShowFeedback(true);
+      setTimeout(() => {
+        resetFeeback();
+        setGuessSubmitted(false);
+      }, 1000);
+    }
+  }, [currentGuess, guessSubmitted, setGuessSubmitted, guessTooShort]);
 
   return (
     <div className="game-container">
-      <Feedback value={feedback} turn={turn} guessCorrect={guessCorrect} />
+      {showFeedback && (
+        <Feedback value={feedback} turn={turn} guessCorrect={guessCorrect} />
+      )}
       <Grid
         currentGuess={currentGuess}
         guesses={guesses}

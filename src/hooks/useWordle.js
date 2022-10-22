@@ -5,7 +5,8 @@ const useWordle = (chosenWord) => {
   const [currentGuess, setCurrentGuess] = useState(""); // keep track of letters entered by user
   const [guesses, setGuesses] = useState([...Array(6)]); // keep track of all guesses for tile colours
   const [guessCorrect, setGuessCorrect] = useState(false); // set to true when user guesses word
-  const [feedback, setFeedback] = useState({});
+  const [guessSubmitted, setGuessSubmitted] = useState(false); // set to true when user guesses word
+  const [guessTooShort, setGuessTooShort] = useState(false); // set to true when user guesses word
 
   // assign a colour to each letter in the guess array
   // colour indicates whether guessed letter is correct/partially correct
@@ -46,7 +47,6 @@ const useWordle = (chosenWord) => {
   // only called if the user's guess is incorrect
   const addNewGuess = (guessArray) => {
     if (currentGuess === chosenWord) {
-      setFeedback({ description: "Correct!" });
       setGuessCorrect(true);
     }
 
@@ -74,7 +74,6 @@ const useWordle = (chosenWord) => {
   };
 
   const playGame = (key, keyCode = 65) => {
-    setFeedback({});
     // check if user already had maximum turns
     if (guessCorrect || turn === 6) {
       return;
@@ -82,13 +81,14 @@ const useWordle = (chosenWord) => {
 
     // check if user pressed enter to submit their guess
     if (key === "Enter") {
+      setGuessSubmitted(true);
       // check guess is of the current length
       if (currentGuess.length < 5) {
-        setFeedback({
-          description: "Not enough letters!",
-        });
+        setGuessTooShort(true);
         return;
       }
+
+      setGuessTooShort(false);
 
       const formatted = formatGuess();
       addNewGuess(formatted);
@@ -108,11 +108,6 @@ const useWordle = (chosenWord) => {
     setCurrentGuess(currentGuess + keyPressed);
   };
 
-  useEffect(() => {
-    if (turn !== 6 || guessCorrect) return;
-    setFeedback({ description: chosenWord });
-  }, [turn]);
-
   // return state variables to be used elsewhere in the app
   return {
     turn,
@@ -121,7 +116,9 @@ const useWordle = (chosenWord) => {
     guessCorrect,
     handleKeyUp,
     handleKeyClick,
-    feedback,
+    guessSubmitted,
+    setGuessSubmitted,
+    guessTooShort,
   };
 };
 

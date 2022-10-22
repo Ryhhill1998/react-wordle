@@ -11,18 +11,4 @@
   height: 40px;
   line-height: 40px;
   margin: 0 auto;
-  animation: fade 1s forwards, fade 0.5s 1s forwards reverse;
-}
-
-.feedback-container.persist {
-  animation: fade 1s forwards;
-}
-
-@keyframes fade {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
 }
