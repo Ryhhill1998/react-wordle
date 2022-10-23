@@ -44,6 +44,7 @@ const Wordle = ({ chosenWord }) => {
 
   useEffect(() => {
     if (guessSubmitted && guessTooShort) {
+      console.log("Not enough letters!");
       setFeedback("Not enough letters!");
       setShowFeedback(true);
       setTimeout(() => {

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const useWordle = (chosenWord) => {
   const [turn, setTurn] = useState(0); // keep track of place on gameboard and lives left
@@ -31,9 +31,17 @@ const useWordle = (chosenWord) => {
   // format the user guess into an array of objects
   // each object contains the letter and its corresponding colour
   const formatGuess = () => {
+    // check guess is of the current length
+    if (currentGuess.length < 5) {
+      setGuessTooShort(true);
+      return;
+    }
+
+    setGuessTooShort(false);
+
     const chosenLetters = [...chosenWord];
 
-    const guessArray = [...currentGuess].map((character, i) => ({
+    const guessArray = [...currentGuess].map((character) => ({
       letter: character,
       colour: "grey",
     }));
@@ -46,6 +54,8 @@ const useWordle = (chosenWord) => {
   // add the formatted guess array into the array of guesses in the state
   // only called if the user's guess is incorrect
   const addNewGuess = (guessArray) => {
+    if (!guessArray) return;
+
     if (currentGuess === chosenWord) {
       setGuessCorrect(true);
     }
@@ -63,49 +73,47 @@ const useWordle = (chosenWord) => {
     setTurn((prevTurn) => prevTurn + 1);
   };
 
-  // handle what to do for each key the user may have pressed
-  // function will simply return if key is not a letter/backspace/enter
-  const handleKeyUp = ({ key, keyCode }) => {
-    playGame(key, keyCode);
-  };
+  const handleLetterSelected = (key, keyCode) => {
+    // check if user entered an invalid character or guess is already 5 letters long and return if so
+    if (
+      keyCode < 65 ||
+      keyCode > 90 ||
+      currentGuess.length === 5 ||
+      key === "Del" ||
+      key === "Enter"
+    )
+      return;
 
-  const handleKeyClick = ({ target }) => {
-    playGame(target.innerHTML);
+    // add letter pressed to currentGuess
+    const keyPressed = key;
+    setCurrentGuess(currentGuess + keyPressed);
   };
 
   const playGame = (key, keyCode = 65) => {
-    // check if user already had maximum turns
-    if (guessCorrect || turn === 6) {
-      return;
-    }
-
     // check if user pressed enter to submit their guess
     if (key === "Enter") {
-      setGuessSubmitted(true);
-      // check guess is of the current length
-      if (currentGuess.length < 5) {
-        setGuessTooShort(true);
-        return;
-      }
-
-      setGuessTooShort(false);
-
       const formatted = formatGuess();
       addNewGuess(formatted);
+      setGuessSubmitted(true);
     }
 
     // check if user pressed backspace
     if (key === "Backspace" || key === "Del") {
       setCurrentGuess((curr) => curr.slice(0, -1));
-      return;
     }
 
-    // check if user entered an invalid character or guess is already 5 letters long and return if so
-    if (keyCode < 65 || keyCode > 90 || currentGuess.length === 5) return;
+    handleLetterSelected(key, keyCode);
+  };
 
-    // add letter pressed to currentGuess
-    const keyPressed = key;
-    setCurrentGuess(currentGuess + keyPressed);
+  // handle what to do for each key the user may have pressed
+  const handleKeyUp = ({ key, keyCode }) => {
+    playGame(key, keyCode);
+  };
+
+  const handleKeyClick = ({ target }) => {
+    if (guessCorrect || turn === 6) return;
+
+    playGame(target.innerHTML);
   };
 
   // return state variables to be used elsewhere in the app
