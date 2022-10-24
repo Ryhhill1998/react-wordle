@@ -32,13 +32,13 @@
 }
 
 .space.green {
-  background-color: green;
-  border-color: green;
+  background-color: #008e89;
+  border-color: #008e89;
 }
 
 .space.yellow {
-  background-color: orange;
-  border-color: orange;
+  background-color: #fdb827;
+  border-color: #fdb827;
 }
 
 .space.grey {

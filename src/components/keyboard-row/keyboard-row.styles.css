@@ -21,11 +21,11 @@
 }
 
 .keyboard-letter.green {
-  background-color: green;
+  background-color: #008e89;
 }
 
 .keyboard-letter.yellow {
-  background-color: orange;
+  background-color: #fdb827;
 }
 
 .keyboard-letter.grey {
