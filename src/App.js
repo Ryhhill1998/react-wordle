@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import Wordle from "./components/wordle/wordle.component";
 
-import { getChosenWord } from "./utils/firebase/firebase.utils";
+import { getDailyWord } from "./utils/firebase/firebase.utils";
 
 import "./App.css";
 
@@ -10,20 +10,21 @@ const App = () => {
   // save chosen word in state
   const [chosenWord, setChosenWord] = useState("");
 
-  // randomly select a word from DATA
-  const generateRandomIndex = () => {
-    return Math.floor(Math.random() * 3624);
+  // generated date string
+  const getCurrentDate = () => {
+    const date = new Date();
+    return `${date.getDay()}-${date.getMonth()}-${date.getFullYear()}`;
   };
 
   // load chosen word from database
-  const loadChosenWord = async () => {
-    const randomIndex = generateRandomIndex();
-    const loadedWord = await getChosenWord("allWords", randomIndex);
+  const loadDailyWord = async () => {
+    const date = getCurrentDate();
+    const loadedWord = await getDailyWord(date);
     setChosenWord(loadedWord);
   };
 
   useEffect(() => {
-    loadChosenWord();
+    loadDailyWord();
   }, []);
 
   useEffect(() => {

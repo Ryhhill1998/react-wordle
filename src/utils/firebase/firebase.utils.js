@@ -6,6 +6,8 @@ import {
   writeBatch,
   doc,
   getDocs,
+  getDoc,
+  addDoc,
   query,
   where,
 } from "firebase/firestore";
@@ -26,8 +28,8 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 // function used to add all words to db via a transaction
-export const addCollectionAndDocuments = async (colKey, dataArray) => {
-  const colRef = collection(db, colKey);
+export const addCollectionAndDocuments = async (dataArray) => {
+  const colRef = collection(db, "allWords");
   const batch = writeBatch(db);
 
   dataArray.forEach((object) => {
@@ -40,10 +42,9 @@ export const addCollectionAndDocuments = async (colKey, dataArray) => {
 };
 
 // get all words from allWords collection in database
-export const getChosenWord = async (colKey, index) => {
-  const colRef = collection(db, colKey);
+export const getChosenWord = async (index) => {
+  const colRef = collection(db, "allWords");
 
-  // Create a query against the collection.
   const q = query(colRef, where("index", "==", index));
 
   const querySnapshot = await getDocs(q);
@@ -55,4 +56,44 @@ export const getChosenWord = async (colKey, index) => {
   });
 
   return chosenWord[0];
+};
+
+// set daily word
+const setDailyWord = async (date) => {
+  const randomIndex = Math.floor(Math.random() * 3624);
+
+  const chosenWord = await getChosenWord(randomIndex);
+
+  const colRef = collection(db, "dailyWords");
+
+  const docRef = await addDoc(colRef, {
+    word: chosenWord,
+    dateCreated: date,
+  });
+
+  console.log("Document written with ID: ", docRef.id);
+
+  return chosenWord;
+};
+
+// get daily word
+export const getDailyWord = async (date) => {
+  const colRef = collection(db, "dailyWords");
+
+  const q = query(colRef, where("dateCreated", "==", date));
+
+  const querySnapshot = await getDocs(q);
+
+  const dailyWord = [];
+
+  querySnapshot.forEach((doc) => {
+    dailyWord.push(doc.data().word);
+  });
+
+  if (!dailyWord.length) {
+    const word = await setDailyWord(date);
+    dailyWord.push(word);
+  }
+
+  return dailyWord[0];
 };
