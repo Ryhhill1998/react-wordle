@@ -2,35 +2,33 @@ import { useEffect, useState } from "react";
 
 import Wordle from "./components/wordle/wordle.component";
 
-import { getAllDocumentsFromCollection } from "./utils/firebase/firebase.utils";
+import { getChosenWord } from "./utils/firebase/firebase.utils";
 
 import "./App.css";
 
 const App = () => {
   // save chosen word in state
   const [chosenWord, setChosenWord] = useState("");
-  const [words, setWords] = useState([]);
-
-  const loadWords = async () => {
-    const storedWords = await getAllDocumentsFromCollection("allWords");
-    console.log(storedWords);
-    setWords(storedWords);
-  };
-
-  useEffect(() => {
-    loadWords();
-  }, []);
 
   // randomly select a word from DATA
-  const generateRandomWord = () => {
-    const randomIndex = Math.floor(Math.random() * words.length);
-    return words[randomIndex];
+  const generateRandomIndex = () => {
+    return Math.floor(Math.random() * 3600);
+  };
+
+  // load chosen word from database
+  const loadChosenWord = async () => {
+    const randomIndex = generateRandomIndex();
+    const loadedWord = await getChosenWord("allWords", randomIndex);
+    setChosenWord(loadedWord);
   };
 
   useEffect(() => {
-    if (!words) return;
-    setChosenWord(generateRandomWord());
-  }, [words]);
+    loadChosenWord();
+  }, []);
+
+  useEffect(() => {
+    console.log(chosenWord);
+  }, [chosenWord]);
 
   return (
     <div className="App">

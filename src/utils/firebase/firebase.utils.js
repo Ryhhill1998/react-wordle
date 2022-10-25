@@ -7,6 +7,7 @@ import {
   doc,
   getDocs,
   query,
+  where,
 } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -25,28 +26,33 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 // function used to add all words to db via a transaction
-export const addCollectionAndDocuments = async (colKey, wordsArray) => {
+export const addCollectionAndDocuments = async (colKey, dataArray) => {
   const colRef = collection(db, colKey);
   const batch = writeBatch(db);
 
-  const docRef = doc(colRef);
-  batch.set(docRef, { words: wordsArray });
+  dataArray.forEach((object) => {
+    const docRef = doc(colRef);
+    batch.set(docRef, object);
+  });
 
   await batch.commit();
   console.log("Batches committed");
 };
 
 // get all words from allWords collection in database
-export const getAllDocumentsFromCollection = async (colKey) => {
+export const getChosenWord = async (colKey, index) => {
   const colRef = collection(db, colKey);
 
-  const querySnapshot = await getDocs(colRef);
+  // Create a query against the collection.
+  const q = query(colRef, where("index", "==", index));
 
-  const docData = [];
+  const querySnapshot = await getDocs(q);
+
+  const chosenWord = [];
 
   querySnapshot.forEach((doc) => {
-    docData.push(doc.data());
+    chosenWord.push(doc.data().word);
   });
 
-  return docData[0].words;
+  return chosenWord[0];
 };
