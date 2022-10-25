@@ -12,7 +12,7 @@ const App = () => {
 
   // randomly select a word from DATA
   const generateRandomIndex = () => {
-    return Math.floor(Math.random() * 3600);
+    return Math.floor(Math.random() * 3624);
   };
 
   // load chosen word from database
