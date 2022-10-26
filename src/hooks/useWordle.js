@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const useWordle = (chosenWord) => {
   const [turn, setTurn] = useState(0); // keep track of place on gameboard and lives left
@@ -7,6 +7,48 @@ const useWordle = (chosenWord) => {
   const [guessCorrect, setGuessCorrect] = useState(false); // set to true when user guesses word
   const [guessSubmitted, setGuessSubmitted] = useState(false); // set to true when user guesses word
   const [guessTooShort, setGuessTooShort] = useState(false); // set to true when user guesses word
+
+  const getCurrentDate = () => {
+    const date = new Date();
+    return `${date.getDay()}-${date.getMonth()}-${date.getFullYear()}`;
+  };
+
+  const saveTurn = () => {
+    localStorage.setItem("turn-" + getCurrentDate(), JSON.stringify(turn));
+  };
+
+  const getSavedTurn = () => {
+    const savedTurn = JSON.parse(
+      localStorage.getItem("turn-" + getCurrentDate())
+    );
+    if (!savedTurn) return;
+    setTurn(savedTurn);
+  };
+
+  const saveGuesses = () => {
+    localStorage.setItem(
+      "guesses-" + getCurrentDate(),
+      JSON.stringify(guesses)
+    );
+  };
+
+  const getSavedGuesses = () => {
+    const savedGuesses = JSON.parse(
+      localStorage.getItem("guesses-" + getCurrentDate())
+    );
+    if (!savedGuesses) return;
+    setGuesses(savedGuesses);
+  };
+
+  useEffect(() => {
+    getSavedGuesses();
+    getSavedTurn();
+  }, []);
+
+  useEffect(() => {
+    saveGuesses();
+    saveTurn();
+  }, [guesses, turn]);
 
   // assign a colour to each letter in the guess array
   // colour indicates whether guessed letter is correct/partially correct
