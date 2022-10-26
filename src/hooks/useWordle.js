@@ -40,15 +40,35 @@ const useWordle = (chosenWord) => {
     setGuesses(savedGuesses);
   };
 
+  const saveGuessCorrect = () => {
+    localStorage.setItem(
+      "guessCorrect-" + getCurrentDate(),
+      JSON.stringify(guessCorrect)
+    );
+  };
+
+  const getSavedGuessCorrect = () => {
+    const savedGuessCorrect = JSON.parse(
+      localStorage.getItem("guessCorrect-" + getCurrentDate())
+    );
+    if (!savedGuessCorrect) return;
+    setGuessCorrect(savedGuessCorrect);
+  };
+
   useEffect(() => {
     getSavedGuesses();
     getSavedTurn();
+    getSavedGuessCorrect();
   }, []);
 
   useEffect(() => {
     saveGuesses();
     saveTurn();
   }, [guesses, turn]);
+
+  useEffect(() => {
+    saveGuessCorrect();
+  }, [guessCorrect]);
 
   // assign a colour to each letter in the guess array
   // colour indicates whether guessed letter is correct/partially correct
