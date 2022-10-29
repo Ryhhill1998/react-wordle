@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+import { useNavigate } from "react-router-dom";
+
 import { createAuthUserWithEmailAndPassword } from "../../utils/firebase/firebase.utils";
 
 const defaultFormFields = {
@@ -11,6 +13,12 @@ const defaultFormFields = {
 const SignUp = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email, password, confirmPassword } = formFields;
+
+  const navigate = useNavigate();
+
+  const redirectToHome = () => {
+    navigate("/home");
+  };
 
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
@@ -26,12 +34,21 @@ const SignUp = () => {
     });
   };
 
+  const signUpUser = async () => {
+    try {
+      await createAuthUserWithEmailAndPassword(email, password);
+      resetFormFields();
+      redirectToHome();
+    } catch (error) {
+      console.error("User credentials not found");
+    }
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
 
     if (password === confirmPassword) {
-      createAuthUserWithEmailAndPassword(email, password);
-      resetFormFields();
+      signUpUser();
     } else {
       console.log("Passwords do not match!");
     }

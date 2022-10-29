@@ -40,7 +40,7 @@ export const auth = getAuth(app);
 export const updateUserProfile = async (user, displayName) => {
   if (!user) return;
 
-  await updateProfile(user, { displayName });
+  await updateProfile(user, { displayName: "Jeff" });
 };
 
 // sign up new user with email and password
@@ -70,17 +70,12 @@ export const signOutAuthUser = async () => {
 
 // sign in and authenticate user with email and password
 export const signInAuthUserWithEmailAndPassword = async (email, password) => {
-  try {
-    const userCredential = await signInWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
-    const user = userCredential?.user;
-    console.log(user);
-  } catch (error) {
-    console.error(error.message);
-  }
+  const userCredential = await signInWithEmailAndPassword(
+    auth,
+    email,
+    password
+  );
+  const user = userCredential?.user;
 };
 
 // --------------- DATABASE MAINTENANCE --------------- //
