@@ -1,40 +1,42 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { UserContext } from "./contexts/user.context";
 
-import Wordle from "./components/wordle/wordle.component";
+import { Routes, Route, Navigate } from "react-router-dom";
 
-import { getDailyWord } from "./utils/firebase/firebase.utils";
+import Welcome from "./routes/welcome/welcome.component";
+import Authentication from "./routes/authentication/authentication.component";
+import Home from "./routes/home/home.component";
 
 import "./App.css";
 
 const App = () => {
-  // save chosen word in state
-  const [chosenWord, setChosenWord] = useState("");
+  // user context
+  const { currentUser } = useContext(UserContext);
 
-  // generated date string
-  const getCurrentDate = () => {
-    const date = new Date();
-    return `${date.getDay()}-${date.getMonth()}-${date.getFullYear()}`;
+  // save user object in state
+  const [user, setUser] = useState(null);
+
+  // retrieve user object from localStorage and setUser to this value
+  const getUserFromLocalStorage = () => {
+    const user = JSON.parse(localStorage.getItem("currentUser"));
+    setUser(user);
   };
 
-  // load chosen word from database
-  const loadDailyWord = async () => {
-    const date = getCurrentDate();
-    const loadedWord = await getDailyWord(date);
-    setChosenWord(loadedWord);
-  };
-
+  // get user object from localStorage each time auth state changes
   useEffect(() => {
-    loadDailyWord();
-  }, []);
-
-  useEffect(() => {
-    console.log(chosenWord);
-  }, [chosenWord]);
+    getUserFromLocalStorage();
+  }, [currentUser]);
 
   return (
     <div className="App">
-      <h1>REACT WORDLE</h1>
-      {chosenWord && <Wordle chosenWord={chosenWord} />}
+      <Routes>
+        <Route
+          path="/"
+          element={user ? <Navigate to="/home" /> : <Welcome />}
+        />
+        <Route path="/auth" element={<Authentication />} />
+        <Route path="/home" element={user ? <Home /> : <Navigate to="/" />} />
+      </Routes>
     </div>
   );
 };

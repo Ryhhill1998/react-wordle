@@ -6,11 +6,18 @@ import {
   writeBatch,
   doc,
   getDocs,
-  getDoc,
   addDoc,
   query,
   where,
 } from "firebase/firestore";
+
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  updateProfile,
+  signOut,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCoRo5Oo5dIlZOU_oGEaOxMJSZdKBao6FY",
@@ -23,6 +30,60 @@ const firebaseConfig = {
 
 // initialise app
 const app = initializeApp(firebaseConfig);
+
+// --------------- AUTHENTICATION --------------- //
+
+// get auth
+export const auth = getAuth(app);
+
+// update user profile
+export const updateUserProfile = async (user, displayName) => {
+  if (!user) return;
+
+  await updateProfile(user, { displayName });
+};
+
+// sign up new user with email and password
+export const createAuthUserWithEmailAndPassword = async (email, password) => {
+  try {
+    const userCredential = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+    const user = userCredential?.user;
+    updateUserProfile(user);
+  } catch (error) {
+    console.error(error.message);
+  }
+};
+
+// sign out the currently authenticated user
+export const signOutAuthUser = async () => {
+  try {
+    await signOut(auth);
+    console.log("User signed out");
+  } catch (error) {
+    console.error(error.message);
+  }
+};
+
+// sign in and authenticate user with email and password
+export const signInAuthUserWithEmailAndPassword = async (email, password) => {
+  try {
+    const userCredential = await signInWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+    const user = userCredential?.user;
+    console.log(user);
+  } catch (error) {
+    console.error(error.message);
+  }
+};
+
+// --------------- DATABASE MAINTENANCE --------------- //
 
 // initialise database
 const db = getFirestore(app);
