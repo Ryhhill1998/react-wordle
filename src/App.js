@@ -13,12 +13,13 @@ const App = () => {
   // generated date string
   const getCurrentDate = () => {
     const date = new Date();
-    return `${date.getDay()}-${date.getMonth()}-${date.getFullYear()}`;
+    return `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
   };
 
   // load chosen word from database
   const loadDailyWord = async () => {
     const date = getCurrentDate();
+    console.log(date);
     const loadedWord = await getDailyWord(date);
     setChosenWord(loadedWord);
   };

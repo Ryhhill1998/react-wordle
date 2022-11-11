@@ -58,6 +58,9 @@ export const getChosenWord = async (index) => {
   return chosenWord[0];
 };
 
+// check if word has already been chosen
+const checkChosenWord = async (word) => {};
+
 // set daily word
 const setDailyWord = async (date) => {
   const randomIndex = Math.floor(Math.random() * 3624);
