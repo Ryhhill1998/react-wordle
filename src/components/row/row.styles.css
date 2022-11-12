@@ -7,7 +7,7 @@
 .space {
   width: 60px;
   height: 60px;
-  border: solid 1px rgba(187, 187, 187, 0.465);
+  border: solid 1px rgba(255, 255, 255, 0.6);
   margin: 0.1em;
   text-align: center;
   line-height: 60px;
@@ -109,11 +109,11 @@
     transform: scale(1);
   }
   50% {
-    border-color: rgb(187, 187, 187);
+    border-color: rgba(255, 255, 255, 0.8);
     transform: scale(1.2);
   }
   100% {
-    border-color: rgb(187, 187, 187);
+    border-color: white;
     transform: scale(1);
   }
 }

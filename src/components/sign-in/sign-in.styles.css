@@ -9,9 +9,9 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 80%;
+  height: 90%;
   max-height: 500px;
-  width: 90%;
+  width: 95%;
   max-width: 500px;
   padding: 2em 3em;
   margin: 0 auto;
@@ -28,6 +28,10 @@
   color: transparent;
 }
 
+.form-input {
+  padding-left: 0.5em;
+}
+
 .submit-btn {
   cursor: pointer;
   width: 100px;
@@ -39,7 +43,7 @@
 .form-input {
   height: 30px;
   font-size: 1rem;
-  background-color: black;
+  background: none;
   border: none;
   border-bottom: solid 1px white;
   color: white;

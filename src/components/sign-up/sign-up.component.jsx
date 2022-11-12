@@ -55,40 +55,45 @@ const SignUp = () => {
   };
 
   return (
-    <form className="form form--signup" onSubmit={handleSubmit}>
-      <h2>Sign up form</h2>
-      <label className="form-label">
-        Email
-        <input
-          className="form-input"
-          type="text"
-          name="email"
-          value={email}
-          onChange={handleChange}
-        />
-      </label>
-      <label className="form-label">
-        Password
-        <input
-          className="form-input"
-          type="text"
-          name="password"
-          value={password}
-          onChange={handleChange}
-        />
-      </label>
-      <label className="form-label">
-        Confirm password
-        <input
-          className="form-input"
-          type="text"
-          name="confirmPassword"
-          value={confirmPassword}
-          onChange={handleChange}
-        />
-      </label>
-      <input className="submit-btn" type="submit" value="Sign up" />
-    </form>
+    <div className="form-container">
+      <form className="form form--signup" onSubmit={handleSubmit}>
+        <h2>Sign up form</h2>
+        <label className="form-label">
+          <input
+            className="form-input"
+            type="email"
+            name="email"
+            value={email}
+            onChange={handleChange}
+            autoComplete="nope"
+            placeholder="Email"
+          />
+        </label>
+        <label className="form-label">
+          <input
+            className="form-input"
+            type="password"
+            name="password"
+            value={password}
+            onChange={handleChange}
+            autoComplete="off"
+            placeholder="Password"
+          />
+        </label>
+        <label className="form-label">
+          <input
+            className="form-input"
+            type="password"
+            name="confirmPassword"
+            value={confirmPassword}
+            onChange={handleChange}
+            autoComplete="off"
+            placeholder="Confirm password"
+          />
+        </label>
+        <input className="submit-btn" type="submit" value="Sign up" />
+      </form>
+    </div>
   );
 };
 

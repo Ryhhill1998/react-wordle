@@ -16,8 +16,13 @@ const Welcome = () => {
 
   const navigateToAuthPage = (event) => {
     const page = event.target.innerHTML;
+
     if (page === "sign in") {
       navigate("/sign-in");
+    }
+
+    if (page === "sign up") {
+      navigate("/sign-up");
     }
   };
 
@@ -38,7 +43,10 @@ const Welcome = () => {
         <button className="welcome-button" onClick={navigateToAuthPage}>
           sign in
         </button>
-        <button className="welcome-button" onClick={navigateToAuthPage}>
+        <button
+          className="welcome-button inverted"
+          onClick={navigateToAuthPage}
+        >
           sign up
         </button>
       </div>

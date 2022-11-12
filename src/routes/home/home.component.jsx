@@ -37,11 +37,18 @@ const Home = () => {
 
   return (
     <div>
-      <h1 className="game-heading">REACT WORDLE</h1>
+      <header>
+        <nav>
+          <button className="sign-out-btn" onClick={signOutUser}>
+            Sign out
+          </button>
+          <h1 className="game-heading">REACT WORDLE</h1>
+          <button className="sign-out-btn" onClick={signOutUser}>
+            Sign out
+          </button>
+        </nav>
+      </header>
       <Wordle chosenWord={chosenWord} />
-      <button className="sign-out-btn" onClick={signOutUser}>
-        Sign out
-      </button>
     </div>
   );
 };

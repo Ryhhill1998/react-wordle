@@ -15,22 +15,49 @@
 
 .welcome-button {
   margin: 0 0.5em;
-  padding: 1em;
-  width: 100px;
+  padding: 1em 1.5em;
+  width: 120px;
+  color: #008e88;
+  border: solid 1.5px white;
+  font-weight: bold;
+  font-size: 1rem;
+  border-radius: 5px;
   text-transform: uppercase;
   cursor: pointer;
+}
+
+.welcome-button:hover {
+  border: solid 1.5px #008e88;
+  background-color: #008e88;
+  color: white;
+}
+
+.welcome-button.inverted {
+  background: none;
+  border: solid 1.5px white;
+  color: white;
+}
+
+.welcome-button.inverted:hover {
+  border-color: #008e88;
+  background-color: #008e88;
+  color: white;
 }
 
 #welcome-row .space {
   width: 70px;
   height: 70px;
-  border: solid 1px rgba(187, 187, 187, 0.465);
+  border: solid 1px rgba(255, 255, 255, 0.6);
   margin: 0.1em;
   text-align: center;
   line-height: 70px;
   text-transform: uppercase;
   font-weight: bold;
   font-size: 3rem;
+}
+
+#welcome-row .space--back {
+  border: none;
 }
 
 .space--front.pos-5 {

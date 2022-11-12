@@ -6,6 +6,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import Welcome from "./routes/welcome/welcome.component";
 import Authentication from "./routes/authentication/authentication.component";
 import SignIn from "./components/sign-in/sign-in.component";
+import SignUp from "./components/sign-up/sign-up.component";
 import Home from "./routes/home/home.component";
 
 import "./App.css";
@@ -41,7 +42,7 @@ const App = () => {
         />
         <Route
           path="/sign-up"
-          element={user ? <Navigate to="/home" /> : <Authentication />}
+          element={user ? <Navigate to="/home" /> : <SignUp />}
         />
         <Route path="/home" element={user ? <Home /> : <Navigate to="/" />} />
       </Routes>
