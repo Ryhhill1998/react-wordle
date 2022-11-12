@@ -3,7 +3,7 @@ import "./row.styles.css";
 const Row = ({ currentGuess, guess, isPrevious, guessCorrect }) => {
   if (currentGuess) {
     return (
-      <div className="row">
+      <div className="game-row">
         {[...currentGuess].map((letter, i) => (
           <div key={i} className="space space--filled">
             {letter}

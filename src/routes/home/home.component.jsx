@@ -37,7 +37,7 @@ const Home = () => {
 
   return (
     <div>
-      <h1>REACT WORDLE</h1>
+      <h1 className="game-heading">REACT WORDLE</h1>
       <Wordle chosenWord={chosenWord} />
       <button className="sign-out-btn" onClick={signOutUser}>
         Sign out

@@ -1,0 +1,28 @@
+.welcome-container {
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2em;
+}
+
+.welcome-heading {
+  font-family: "Graduate", cursive;
+  font-size: 2rem;
+  margin: 0;
+}
+
+.welcome-button {
+  margin: 0 0.5em;
+  padding: 1em;
+  width: 100px;
+}
+
+.space--front.pos-5 {
+  animation-delay: 1s;
+}
+
+.space--back.pos-5 {
+  animation-delay: 1.5s;
+}
