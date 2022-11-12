@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router-dom";
+
 import "./welcome.styles.css";
 
 const Welcome = () => {
@@ -10,10 +12,19 @@ const Welcome = () => {
     { letter: "e", colour: "grey" },
   ];
 
+  const navigate = useNavigate();
+
+  const navigateToAuthPage = (event) => {
+    const page = event.target.innerHTML;
+    if (page === "sign in") {
+      navigate("/sign-in");
+    }
+  };
+
   return (
     <div className="welcome-container">
       <h1 className="welcome-heading">Welcome to</h1>
-      <div className="row">
+      <div id="welcome-row" className="row">
         {wordleLetters.map((el, i) => (
           <div key={i}>
             <div className={`space space--front pos-${i}`}>{el.letter}</div>
@@ -24,8 +35,12 @@ const Welcome = () => {
         ))}
       </div>
       <div className="welcome-buttons-container">
-        <button className="welcome-button">Sign in</button>
-        <button className="welcome-button">Sign up</button>
+        <button className="welcome-button" onClick={navigateToAuthPage}>
+          sign in
+        </button>
+        <button className="welcome-button" onClick={navigateToAuthPage}>
+          sign up
+        </button>
       </div>
     </div>
   );

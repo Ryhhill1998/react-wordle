@@ -1,7 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Graduate&family=Roboto&display=swap");
 
-body {
+* {
+  box-sizing: border-box;
   margin: 0;
+  padding: 0;
+}
+
+body {
   text-align: center;
   font-size: 1rem;
   font-family: "Roboto", sans-serif;

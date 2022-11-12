@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 
 import { signInAuthUserWithEmailAndPassword } from "../../utils/firebase/firebase.utils";
 
+import "./sign-in.styles.css";
+
 const defaultFormFields = {
   email: "",
   password: "",
@@ -49,30 +51,34 @@ const SignIn = () => {
   };
 
   return (
-    <form className="form form--signin" onSubmit={handleSubmit}>
-      <h2>Sign in form</h2>
-      <label className="form-label">
-        Email
-        <input
-          className="form-input"
-          type="text"
-          name="email"
-          value={email}
-          onChange={handleChange}
-        />
-      </label>
-      <label className="form-label">
-        Password
-        <input
-          className="form-input"
-          type="text"
-          name="password"
-          value={password}
-          onChange={handleChange}
-        />
-      </label>
-      <input className="submit-btn" type="submit" value="Sign in" />
-    </form>
+    <div className="form-container">
+      <form className="form form--signin" onSubmit={handleSubmit}>
+        <h2>Sign in</h2>
+        <label className="form-label">
+          <input
+            className="form-input"
+            type="email"
+            name="email"
+            value={email}
+            onChange={handleChange}
+            autoComplete="off"
+            placeholder="Email"
+          />
+        </label>
+        <label className="form-label">
+          <input
+            className="form-input"
+            type="password"
+            name="password"
+            value={password}
+            onChange={handleChange}
+            autoComplete="off"
+            placeholder="Password"
+          />
+        </label>
+        <input className="submit-btn" type="submit" value="Sign in" />
+      </form>
+    </div>
   );
 };
 

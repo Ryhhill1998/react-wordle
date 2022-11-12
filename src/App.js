@@ -5,6 +5,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 
 import Welcome from "./routes/welcome/welcome.component";
 import Authentication from "./routes/authentication/authentication.component";
+import SignIn from "./components/sign-in/sign-in.component";
 import Home from "./routes/home/home.component";
 
 import "./App.css";
@@ -35,7 +36,11 @@ const App = () => {
           element={user ? <Navigate to="/home" /> : <Welcome />}
         />
         <Route
-          path="/auth"
+          path="/sign-in"
+          element={user ? <Navigate to="/home" /> : <SignIn />}
+        />
+        <Route
+          path="/sign-up"
           element={user ? <Navigate to="/home" /> : <Authentication />}
         />
         <Route path="/home" element={user ? <Home /> : <Navigate to="/" />} />

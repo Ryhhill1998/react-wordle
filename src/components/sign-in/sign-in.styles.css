@@ -1,0 +1,50 @@
+.form-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 80%;
+  max-height: 500px;
+  width: 90%;
+  max-width: 500px;
+  padding: 2em 3em;
+  margin: 0 auto;
+}
+
+.form-label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  text-align: left;
+}
+
+.form-input:focus::placeholder {
+  color: transparent;
+}
+
+.submit-btn {
+  cursor: pointer;
+  width: 100px;
+  padding: 1em;
+  text-transform: uppercase;
+  align-self: center;
+}
+
+.form-input {
+  height: 30px;
+  font-size: 1rem;
+  background-color: black;
+  border: none;
+  border-bottom: solid 1px white;
+  color: white;
+}
+
+.form-input:focus {
+  outline: none;
+}
