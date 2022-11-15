@@ -19,7 +19,6 @@ const App = () => {
   // load chosen word from database
   const loadDailyWord = async () => {
     const date = getCurrentDate();
-    console.log(date);
     const loadedWord = await getDailyWord(date);
     setChosenWord(loadedWord);
   };

@@ -10,7 +10,7 @@ const useWordle = (chosenWord) => {
 
   const getCurrentDate = () => {
     const date = new Date();
-    return `${date.getDay()}-${date.getMonth()}-${date.getFullYear()}`;
+    return `${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`;
   };
 
   const saveTurn = () => {
